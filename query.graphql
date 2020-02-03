@@ -1,0 +1,27 @@
+query {
+  rateLimit {
+    cost
+    remaining
+    resetAt
+  }
+  search(query: "is:public stars:>15", type: REPOSITORY, first: 100) {
+    repositoryCount
+    pageInfo {
+      endCursor
+      startCursor
+    }
+    edges {
+      node {
+        ... on Repository {
+          nameWithOwner
+          stargazers {
+            totalCount
+          }
+          watchers {
+            totalCount
+          }
+        }
+      }
+    }
+  }
+}
