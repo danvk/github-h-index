@@ -78,12 +78,13 @@ def get_count(q):
 
 
 def scrape(q, out_file):
-    if os.path.exists(out_file):
-        print('Skipping', out_file, 'already exists')
+    path = f'responses/{out_file}'
+    if os.path.exists(path):
+        print('Skipping', path, 'already exists')
         return
     all_repos = []
     cursor = None
-    print('Creating', out_file)
+    print('Creating', path)
     while True:
         r = get_repos(q, cursor, 100)
         search = r['search']
@@ -98,7 +99,7 @@ def scrape(q, out_file):
         print(len(all_repos), ' / ', total, cursor)
         if not has_next or r['rateLimit']['remaining'] < 10:
             break
-    with open(out_file, 'w') as out:
+    with open(path, 'w') as out:
         json.dump(all_repos, out)
     time.sleep(4)
 

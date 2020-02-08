@@ -10,7 +10,11 @@ import os
 
 repo_to_stars = {}
 
-files = [f for f in glob.glob('repos.star*.json') if os.path.isfile(f)]
+files = [
+    f
+    for f in glob.glob('responses/repos.star*.json')
+    if os.path.isfile(f)
+]
 files.sort(key=lambda x: os.path.getmtime(x))
 
 for f in files:
